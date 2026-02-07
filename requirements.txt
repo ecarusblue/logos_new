@@ -1,0 +1,17 @@
+# Core dependencies
+python-telegram-bot==21.0
+aiohttp==3.9.1
+pyyaml==6.0.1
+python-dotenv==1.0.0
+
+# News collection
+feedparser==6.0.10
+beautifulsoup4==4.12.2
+httpx>=0.27.0
+
+# Scheduling (optional - for standalone mode)
+apscheduler==3.10.4
+
+# Development
+pytest==7.4.3
+pytest-asyncio==0.23.2

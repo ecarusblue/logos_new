@@ -1,0 +1,43 @@
+# Logos News - systemd 서비스 파일
+# 설치 위치: /etc/systemd/system/logos-news.service
+#
+# 사용법:
+#   sudo cp deploy/logos-news.service /etc/systemd/system/
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable logos-news
+#   sudo systemctl start logos-news
+
+[Unit]
+Description=Logos News - Daily News Briefing Bot
+After=network.target
+
+[Service]
+Type=simple
+User=logos
+Group=logos
+
+# 작업 디렉토리 (실제 경로로 수정)
+WorkingDirectory=/opt/logos_news
+
+# 가상환경 Python 경로 (실제 경로로 수정)
+ExecStart=/opt/logos_news/venv/bin/python -m src.main --scheduler
+
+# 환경 변수 파일
+EnvironmentFile=/opt/logos_news/.env
+
+# 재시작 정책
+Restart=on-failure
+RestartSec=30
+
+# 표준 출력/에러 -> 저널
+StandardOutput=journal
+StandardError=journal
+
+# 보안 설정
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/logos_news/logs
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,46 @@
+# Logos News 설정 파일
+# 이 파일을 config.yaml로 복사하여 사용하세요.
+
+# 스케줄 설정
+schedule:
+  time: "07:00"           # 실행 시간 (HH:MM 형식)
+  timezone: "Asia/Seoul"  # 타임존
+
+# 텔레그램 설정
+# 환경변수를 사용하거나 직접 값을 입력하세요
+telegram:
+  bot_token: "${TELEGRAM_BOT_TOKEN}"  # @BotFather에서 발급받은 토큰
+  chat_id: "${TELEGRAM_CHAT_ID}"      # 메시지를 받을 채팅 ID
+
+# 뉴스 설정
+news:
+  categories:
+    society:
+      enabled: true
+      max_items: 5
+      keywords: []  # 빈 배열이면 전체 뉴스
+    economy:
+      enabled: true
+      max_items: 5
+      keywords: []
+
+  sources:
+    naver:
+      enabled: true
+      priority: 1
+    google:
+      enabled: true
+      priority: 2
+
+# 메시지 설정
+message:
+  include_summary: true
+  include_link: true
+  format: "markdown"  # markdown 또는 html
+
+# 로깅 설정
+logging:
+  level: "INFO"       # DEBUG, INFO, WARNING, ERROR
+  file: "logs/news_bot.log"
+  max_size_mb: 10
+  backup_count: 5

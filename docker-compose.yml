@@ -1,0 +1,36 @@
+# Logos News - Docker Compose 설정
+version: '3.8'
+
+services:
+  logos-news:
+    build: .
+    container_name: logos-news
+    restart: unless-stopped
+
+    # 환경 변수 (또는 .env 파일 사용)
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID}
+      - TZ=Asia/Seoul
+
+    # 설정 파일 마운트
+    volumes:
+      - ./config/config.yaml:/app/config/config.yaml:ro
+      - ./logs:/app/logs
+
+    # 로깅 설정
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+    # 리소스 제한
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+        reservations:
+          cpus: '0.1'
+          memory: 128M
